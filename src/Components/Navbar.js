@@ -17,9 +17,6 @@ export class Navbar extends Component {
                                     <a className="nav-link active" aria-current="page" href="/">Home</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/">Link</a>
-                                </li>
-                                  <li className="nav-item">
                                     <a className="nav-link" href="/about">About</a>
                                 </li>
                             </ul>
