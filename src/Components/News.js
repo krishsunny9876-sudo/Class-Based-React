@@ -4,17 +4,18 @@ import NewsItem from './NewsItem'
 export class News extends Component {
   render() {
     return (
-      <div>
-        This Is News Component
-        <NewsItem/>
-        <NewsItem/>
-        <NewsItem/>
-        <NewsItem/>
-        <NewsItem/>
-        <NewsItem/>
-      </div>
+      <>
+        <div className='container'>
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+          <NewsItem />
+        </div>
+      </>
     )
   }
 }
- 
+
 export default News
