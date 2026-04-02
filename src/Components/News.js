@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 
 export class News extends Component {
+  handleNextClick = () => {
+
+  }
+  handlePrevClick = () => {
+
+  }
 
   constructor() {
     super();
@@ -42,8 +48,8 @@ export class News extends Component {
           </div>
 
           <div className="container d-flex justify-content-between">
-            <button type="button" class="btn btn-dark">Prev</button>
-            <button type="button" class="btn btn-dark">Next</button>
+            <button type="button" class="btn btn-dark" onClick={this.handlePrevClick}>&larr; Prev</button>
+            <button type="button" class="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
           </div>
         </div>
       </>
