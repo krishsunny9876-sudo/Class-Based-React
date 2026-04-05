@@ -4,7 +4,7 @@ import NewsItem from './NewsItem'
 export class News extends Component {
 
   handleNextClick = async () => {
-    this.setState({ 
+    this.setState({
       page: this.state.page + 1
     })
 
@@ -34,7 +34,7 @@ export class News extends Component {
   constructor() {
     super();
     this.state = {
-      articles: [], 
+      articles: [],
       loading: false,
       page: 1,
       totalResults: 0
