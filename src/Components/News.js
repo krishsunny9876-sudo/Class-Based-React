@@ -4,7 +4,7 @@ import NewsItem from './NewsItem'
 export class News extends Component {
 
   handleNextClick = async () => {
-    this.setState({
+    this.setState({ 
       page: this.state.page + 1
     })
 
