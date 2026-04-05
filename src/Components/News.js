@@ -8,8 +8,6 @@ export class News extends Component {
       page: this.state.page + 1
     })
 
-    console.log(this.state.page + 1);
-
     let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=081588361a054a0f930185b82927f00c&page=${this.state.page + 1}&pageSize=20`
     let data = await fetch(url);
     let data_object = await data.json();
@@ -24,8 +22,6 @@ export class News extends Component {
       page: this.state.page - 1
     })
 
-    console.log(this.state.page - 1);
-
     let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=081588361a054a0f930185b82927f00c&page=${this.state.page - 1}&pageSize=20`
     let data = await fetch(url);
     let data_object = await data.json();
@@ -38,7 +34,7 @@ export class News extends Component {
   constructor() {
     super();
     this.state = {
-      articles: [],
+      articles: [], 
       loading: false,
       page: 1,
       totalResults: 0
@@ -49,8 +45,6 @@ export class News extends Component {
     let url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=081588361a054a0f930185b82927f00c&page=1&pageSize=20"
     let data = await fetch(url);
     let data_object = await data.json();
-
-    console.log(data_object);
 
     this.setState({ articles: data_object.articles, totalResults: data_object.totalResults })
   }
