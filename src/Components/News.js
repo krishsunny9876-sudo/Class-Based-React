@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
-import loading from './loading'
+import Loading from './loading'
 
 export class News extends Component {
 
   handleNextClick = async () => {
     this.setState({
-      page: this.state.page + 1
+      page: this.state.page + 1,
+      loading: true
     })
 
     let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=081588361a054a0f930185b82927f00c&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
@@ -14,13 +15,15 @@ export class News extends Component {
     let data_object = await data.json();
 
     this.setState({
-      articles: data_object.articles
+      articles: data_object.articles,
+      loading: false
     })
   }
 
   handlePrevClick = async () => {
     this.setState({
-      page: this.state.page - 1
+      page: this.state.page - 1,
+      loading: true
     })
 
     let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=081588361a054a0f930185b82927f00c&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
@@ -28,7 +31,8 @@ export class News extends Component {
     let data_object = await data.json();
 
     this.setState({
-      articles: data_object.articles
+      articles: data_object.articles,
+      loading: false
     })
   }
 
@@ -43,11 +47,12 @@ export class News extends Component {
   }
 
   async componentDidMount() {
+    this.setState({ loading: true })
     let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=081588361a054a0f930185b82927f00c&page=1&pageSize=${this.props.pageSize}`
     let data = await fetch(url);
     let data_object = await data.json();
 
-    this.setState({ articles: data_object.articles, totalResults: data_object.totalResults })
+    this.setState({ articles: data_object.articles, totalResults: data_object.totalResults, loading: false })
   }
 
   render() {
@@ -56,9 +61,9 @@ export class News extends Component {
         <div className='container my-3'>
           <h1 className='text-center'>News Bobsun-Top Headlines</h1>
 
-          <loading />
+          {this.state.loading && <Loading />}
 
-          <div className='row'>
+          {!this.state.loading && <div className='row'>
             {this.state.articles.map((element) => {
               return (
                 <div className='col-md-4' key={element.url}>
@@ -69,11 +74,11 @@ export class News extends Component {
                 </div>
               )
             })}
-          </div>
+          </div>}
 
           <div className="container d-flex justify-content-between">
-            <button disabled={this.state.page <= 1} type="button" class="btn btn-dark" onClick={this.handlePrevClick}>&larr; Prev</button>
-            <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)} type="button" class="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
+            <button disabled={this.state.page <= 1} type="button" className="btn btn-dark" onClick={this.handlePrevClick}>&larr; Prev</button>
+            <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)} type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
           </div>
         </div>
       </>
