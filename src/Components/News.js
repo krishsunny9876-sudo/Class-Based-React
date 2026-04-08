@@ -17,36 +17,31 @@ export class News extends Component {
     category: PropTypes.string
   };
 
-  handleNextClick = async () => {
-    this.setState({
-      page: this.state.page + 1,
-      loading: true
-    })
-
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.countryName}&category=${this.props.category}&apiKey=ad38da3716dc44eda8ba970297cb6409&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
+  async updateNews() {
+    this.setState({ loading: true })
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.countryName}&category=${this.props.category}&apiKey=ad38da3716dc44eda8ba970297cb6409&page=${this.state.page}&pageSize=${this.props.pageSize}`
     let data = await fetch(url);
     let data_object = await data.json();
 
     this.setState({
       articles: data_object.articles,
+      totalResults: data_object.totalResults,
       loading: false
     })
   }
 
+  handleNextClick = async () => {
+    this.setState({
+      page: this.state.page + 1
+    })
+    this.updateNews();
+  }
+
   handlePrevClick = async () => {
     this.setState({
-      page: this.state.page - 1,
-      loading: true
+      page: this.state.page - 1
     })
-
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.countryName}&category=${this.props.category}&apiKey=ad38da3716dc44eda8ba970297cb6409&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
-    let data = await fetch(url);
-    let data_object = await data.json();
-
-    this.setState({
-      articles: data_object.articles,
-      loading: false
-    })
+    this.updateNews();
   }
 
   constructor() {
@@ -60,12 +55,7 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ loading: true })
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.countryName}&category=${this.props.category}&apiKey=ad38da3716dc44eda8ba970297cb6409&page=1&pageSize=${this.props.pageSize}`
-    let data = await fetch(url);
-    let data_object = await data.json();
-
-    this.setState({ articles: data_object.articles, totalResults: data_object.totalResults, loading: false })
+    this.updateNews();
   }
 
   render() {
